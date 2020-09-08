@@ -2,8 +2,8 @@ var s = io();
 
 var preloadCards = [];
 for (var i = 2; i < 14; i++) {
-  for (var j of FACE_NAMES) {
-    var card = new Card(NUM_NAMES, j);
+  for (var j = 0; j < 4; j++) {
+    var card = new Card(i, j);
     preloadCards.push(card);
   }
 }
