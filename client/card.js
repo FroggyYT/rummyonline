@@ -1,4 +1,4 @@
-const ASSET_TEMPLATE = "{NUM}_of_{FACE}.png";
+const ASSET_TEMPLATE = "./client/assets/{NUM}_of_{FACE}.png";
 
 const HEARTS = 0;
 const CLUBS = 1;
@@ -20,10 +20,10 @@ const LOW_ACE = 1;
 
 const FACE_NAMES = [ "hearts", "clubs", "diamonds", "spades" ];
 
-const NUM_NAMES = [ 0, "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king", "ace" ];
+const NUM_NAMES = [ 0, "ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace" ];
 
 class Card {
-	constructor(_face, _num) {
+	constructor(_num, _face) {
 		this.face = _face;
 		this.num = _num;
 		this.faceName = FACE_NAMES[this.face];
