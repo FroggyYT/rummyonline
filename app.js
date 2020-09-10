@@ -2,6 +2,8 @@ var express = require("express");
 var app = express();
 var server = require("http").Server(app);
 var fs = require("fs");
+var cardjs = require("./client/card.js");
+var deckjs = require("./client/deck.js");
 
 app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/client/loginredirect.html")
@@ -29,17 +31,59 @@ server.listen(process.env.PORT || 80);
 
 var io = require("socket.io")(server,{});
 
+
+
+
+
+
+
+
 var PLAYERS = [];
 var SOCKETS = [];
 
+var currentDeck;
 var gameRunning = false;
 var timeUntilGameStart = 120;
 var currentTimeUntilGameStart = timeUntilGameStart;
+
+var waitToSendHand = false;
+
+function startGame() {
+	console.log("h");
+	currentDeck = new deckjs.Deck();
+	currentDeck.shuffle();
+	distributeCards();
+}
+
+function distributeCards() {
+	for (var i = 0; i < 7; i++) {
+		for (var j in PLAYERS) {
+			PLAYERS[j].hand.push(currentDeck[0])
+			currentDeck.splice(0, 1);
+		}
+	}
+
+	waitToSendHand = true;
+}
+
+
+
+
+
 
 class Player {
 	constructor(_name, _socket) {
 		this.name = _name;
 		this.pSocket = _socket
+		this.hand = [];
+	}
+
+	remove() {
+		for (var i in PLAYERS) {
+			if (PLAYERS[i].pSocket.socket.id == this.pSocket.socket.id) {
+				PLAYERS.splice(i, 1);
+			}
+		}
 	}
 }
 
@@ -58,30 +102,6 @@ class PlayerSocket {
 }
 
 
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min) + min)
-}
-
-class Deck {
-  constructor() {
-    this.cards = [];
-    for (var i = 2; i < 15; i++) {
-      for (var j = 0; j < 4; j++) {
-        var card = new Card(i, j);
-        this.cards.push(card);
-      }
-    }
-  }
-
-  shuffle() {
-    for (var i in this.cards) {
-      var indexReplace = random(0, this.cards.length);
-      var temp = this.cards[i];
-      this.cards[i] = this.cards[indexReplace];
-      this.cards[indexReplace] = temp;
-    }
-  }
-}
 
 
 
@@ -93,9 +113,14 @@ class Deck {
 
 
 
-
-
-
+setInterval(() => {
+	// console.log(gameRunning);
+	// console.log(PLAYERS.length);
+	if (!gameRunning && PLAYERS.length > 0) {
+		gameRunning = true;
+		startGame();
+	}
+}, 1000);
 
 io.on("connection", s => {
 	var pSock = new PlayerSocket(s);
@@ -103,6 +128,7 @@ io.on("connection", s => {
 	SOCKETS.push(pSock);
 
 	s.pSocket = pSock;
+	s.inGame = false;
 
 	s.on("checkValidName", d => {
 		var valid = true;
@@ -119,6 +145,10 @@ io.on("connection", s => {
 		if (d.length > 15) {
 			valid = false;
 			s.emit("nameFail", "Display name must be less than 15 characters");
+		}
+		if (gameRunning) {
+			valid = false;
+			s.emit("nameFail", "There is already a game running");
 		}
 
 		if (valid) {
@@ -220,10 +250,38 @@ io.on("connection", s => {
 
 	s.on("joinGame", d => {
 		s.player = new Player(d, s.pSocket);
+		// console.log(s.player);
+		s.inGame = true;
 		PLAYERS.push(s.player);
+		console.log(PLAYERS);
 	});
+
+
+	setInterval(() => {
+		if (waitToSendHand) {
+			waitToSendHand = false;
+			s.emit("hand", s.player.hand);
+		}
+		console.log(PLAYERS.length);
+	}, 1000);
+
+
+
+
+
+
 
 	s.on("disconnect", () => {
 		s.pSocket.remove();
+		console.log("h");
+		if (s.inGame) {
+			s.player.remove();
+
+			if (gameRunning) {
+				for (var i in s.player.hand) {
+					currentDeck.push(s.player.hand[i]);
+				}
+			}
+		}
 	});
 });

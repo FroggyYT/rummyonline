@@ -1,28 +1,30 @@
-const ASSET_TEMPLATE = "./client/assets/{NUM}_of_{FACE}.png";
+if (typeof window != "undefined") exports = {};
 
-const HEARTS = 0;
-const CLUBS = 1;
-const DIAMONDS = 2;
-const SPADES = 3;
+const ASSET_TEMPLATE = exports.ASSET_TEMPLATE = "./client/assets/{NUM}_of_{FACE}.png";
 
-const FACES = [ HEARTS, CLUBS, DIAMONDS, SPADES ];
+const HEARTS = exports.HEARTS = 0;
+const CLUBS = exports.CLUBS = 1;
+const DIAMONDS = exports.DIAMONDS = 2;
+const SPADES = exports.SPADES = 3;
 
-const RED = [255, 0, 0];
-const BLACK = [0, 0, 0];
+const FACES = exports.FACES = [ HEARTS, CLUBS, DIAMONDS, SPADES ];
 
-const COLORS = [ RED, BLACK, RED, BLACK ];
+const RED = exports.RED = [255, 0, 0];
+const BLACK = exports.BLACK = [0, 0, 0];
 
-const JACK = 11;
-const QUEEN = 12;
-const KING = 13;
-const ACE = 14;
-const LOW_ACE = 1;
+const COLORS = exports.COLORS = [ RED, BLACK, RED, BLACK ];
 
-const FACE_NAMES = [ "hearts", "clubs", "diamonds", "spades" ];
+const JACK = exports.JACK = 11;
+const QUEEN = exports.QUEEN = 12;
+const KING = exports.KING = 13;
+const ACE = exports.ACE = 14;
+const LOW_ACE = exports.LOW_ACE = 1;
 
-const NUM_NAMES = [ 0, "ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace" ];
+const FACE_NAMES = exports.FACE_NAMES = [ "hearts", "clubs", "diamonds", "spades" ];
 
-const VALUES = [ 0, 15, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10, 10, 15 ];
+const NUM_NAMES = exports.NUM_NAMES = [ 0, "ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace" ];
+
+const VALUES = exports.VALUES = [ 0, 15, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10, 10, 15 ];
 
 class Card {
 	constructor(_num, _face) {
@@ -57,6 +59,9 @@ class CardElement {
 	}
 }
 
+exports.Card = Card;
+exports.CardElement = CardElement;
+
 
 
 
@@ -67,14 +72,18 @@ class CardElement {
 
 // Preload images
 
-var preloadCards = [];
-for (var i = 2; i < 15; i++) {
-  for (var j = 0; j < 4; j++) {
-    var card = new Card(i, j);
-    preloadCards.push(card);
-  }
-}
+if (typeof window != "undefined") {
+	delete exports;
 
-for (var i of preloadCards) {
-  preloadImage(i.assetName);
+	var preloadCards = [];
+	for (var i = 2; i < 15; i++) {
+	  for (var j = 0; j < 4; j++) {
+	    var card = new Card(i, j);
+	    preloadCards.push(card);
+	  }
+	}
+
+	for (var i of preloadCards) {
+	  preloadImage(i.assetName);
+	}
 }
