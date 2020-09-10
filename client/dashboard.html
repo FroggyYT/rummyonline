@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RummyOnline</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+	<script type="text/javascript" src="./client/dashboard.js"></script>
+	<style media="screen">
+
+	* {
+			box-sizing: border-box;
+	}
+
+	body {
+		background:url("./client/assets/menuBackground.jpg");
+		background-size:cover;
+	}
+
+	input {
+		width:200px;
+		height:50px;
+		padding:8px;
+		margin:2px;
+	}
+
+	#join {
+		border-color: gray;
+		border-width: 2px;
+		padding:8px;
+		width:200px;
+		height:50px;
+		margin:2px;
+	}
+
+	#joinGame {
+		width:300px;
+		height:300px;
+		padding:8px;
+		border-style:outset;
+		border-color:gray;
+		background-color:lightgray;
+		margin:10px;
+	}
+
+	#accountInfo {
+		width:300px;
+		height:300px;
+		padding:8px;
+		border-style:outset;
+		border-color:gray;
+		background-color:lightgray;
+		margin:10px;
+	}
+
+	#stats {
+		width:300px;
+		height:300px;
+		padding:8px;
+		border-style:outset;
+		border-color:gray;
+		background-color:lightgray;
+		margin:10px;
+	}
+
+	#logout {
+		border-color: darkred;
+		background-color:maroon;
+		border-width:2px;
+		padding:2px;
+		width:100px;
+		height:25px;
+		color:lightgray;
+	}
+
+	h1 {
+		font-family:arial;
+	}
+
+	#centerWrapper {
+		/*width:50%;
+		height:420px;
+		padding:18px;
+		border-style:outset;
+		border-color:gray;
+		background-color:lightgray;
+		margin:10px;*/
+		display:inline-flex;
+	}
+	</style>
+</head>
+<body>
+	<center>
+		<div id="centerWrapper">
+			<div id="accountInfo">
+				<h1 id="username"></h1>
+				<button id="logout">Logout!</button>
+			</div>
+			<div id="stats">
+				<h1 id="money">Money: </h1>
+				<h1 id="wins">Wins: </h1>
+				<h1 id="losses">Losses: </h1>
+				<h1 id="draws">Draws: </h1>
+				<button id="leaderboard">Leaderboard</button>
+			</div>
+			<br>
+			<div id="joinGame">
+				<input id="display" placeholder="Enter a display name" />
+				<br><br>
+				<button id="join">Join Game!</button>
+			</div>
+		</div>
+	</center>
+</body>
+</html>

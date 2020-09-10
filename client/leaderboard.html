@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>RummyOnline</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="./client/leaderboard.js" charset="utf-8"></script>
+    <style media="screen">
+      * {
+    			box-sizing: border-box;
+    	}
+
+    	body {
+    		background:url("./client/assets/menuBackground.jpg");
+    		background-size:cover;
+    	}
+
+    	input {
+    		width:200px;
+    		height:50px;
+    		padding:8px;
+    		margin:2px;
+    	}
+
+    	#leaderboard {
+    		width:25%;
+    		height:90vh;
+    		border-style:outset;
+    		border-color:gray;
+    		background-color:lightgray;
+    		margin:10px;
+        overflow-y:scroll;
+    	}
+
+    	* {
+    		font-family:arial;
+    	}
+
+      #leaderText {
+        padding:5px;
+        background-color:lightgray;
+        position:sticky;
+        top:0;
+      }
+
+      .header {
+        font-size:1.4em;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <div id="leaderboard">
+        <div id="leaderText">
+          <h1>Leaderboard</h1>
+          <button id="dashboard">Back To Dashboard</button>
+          <p class="header">Name&nbsp;&nbsp;&nbsp;Money&nbsp;&nbsp;&nbsp;Wins&nbsp;&nbsp;&nbsp;Losses&nbsp;&nbsp;&nbsp;Draws</p>
+        </div>
+        <div id="leader"></div>
+      </div>
+    </center>
+  </body>
+</html>

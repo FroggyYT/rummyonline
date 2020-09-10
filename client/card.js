@@ -22,12 +22,38 @@ const FACE_NAMES = [ "hearts", "clubs", "diamonds", "spades" ];
 
 const NUM_NAMES = [ 0, "ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace" ];
 
+const VALUES = [ 0, 15, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10, 10, 15 ];
+
 class Card {
 	constructor(_num, _face) {
 		this.face = _face;
 		this.num = _num;
 		this.faceName = FACE_NAMES[this.face];
-		this.numName = NUM_NAMES[this.num]
+		this.numName = NUM_NAMES[this.num];
 		this.assetName = ASSET_TEMPLATE.split("{NUM}").join(this.numName).split("{FACE}").join(this.faceName);
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+// Preload images
+
+var preloadCards = [];
+for (var i = 2; i < 14; i++) {
+  for (var j = 0; j < 4; j++) {
+    var card = new Card(i, j);
+    preloadCards.push(card);
+  }
+}
+
+for (var i of preloadCards) {
+  preloadImage(i.assetName);
 }

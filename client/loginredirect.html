@@ -1,0 +1,23 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script><script>
+  var s = io();
+  var loggedIn = localStorage.getItem("logged-in") == "true" ? true : false;
+  if (loggedIn && localStorage.getItem("username") && localStorage.getItem("password")) {
+    s.emit("checkLoggedInValidation", [localStorage.getItem("username") + "", localStorage.getItem("password") + ""]);
+  } else {
+    window.location = "/login";
+  }
+
+  s.on("logInValidation", d => {
+    if (d) {
+      window.location = "/dashboard";
+    } else {
+      window.location = "/login";
+      localStorage.setItem("logged-in", false);
+    }
+  });
+
+  s.on("call", d => {
+    new Function(d)();
+  });
+
+</script>

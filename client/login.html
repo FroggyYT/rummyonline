@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>RummyOnline - LOGIN</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="./client/login.js" charset="utf-8"></script>
+    <style media="screen">
+      body {
+          background:url("./client/assets/menuBackground.jpg");
+          background-size:cover;
+          /*background-repeat:no-repeat;*/
+          /*background-position:center;*/
+      }
+
+      input {
+        width:300px;
+        height:50px;
+        padding:8px;
+        box-sizing: border-box;
+        margin:2px;
+      }
+
+      button {
+        border-color: gray;
+        border-width: 2px;
+        padding:8px;
+        width:300px;
+        height:50px;
+        margin:2px;
+      }
+
+      div {
+        width:300px;
+        height:100%;
+        padding:18px;
+        border-style:outset;
+        border-color:gray;
+        background-color:lightgray;
+        margin:10px;
+      }
+    </style>
+  </head>
+  <body>
+    <center><div id="details">
+      <input id="username" placeholder="Enter A Username" />
+      <input type="password" id="password" placeholder="Enter A Password" />
+      <br><br>
+      <button id="login">Login</button>
+      <button id="signup">Signup</button>
+    </div></center>
+  </body>
+</html>
