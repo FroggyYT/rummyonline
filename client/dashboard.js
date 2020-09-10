@@ -1,5 +1,5 @@
 var s = io();
-
+var displayBox;
 setTimeout(callback, 100);
 
 var loggedIn = localStorage.getItem("logged-in") == "true" ? true : false;
@@ -19,7 +19,7 @@ s.on("logInValidation", d => {
 
 function callback() {
   var joinButton = document.getElementById("join");
-  var displayBox = document.getElementById("display");
+  displayBox = document.getElementById("display");
   var usernameText = document.getElementById("username");
   var logoutButton = document.getElementById("logout");
   var moneyText = document.getElementById("money");
@@ -58,8 +58,12 @@ function callback() {
 }
 
 s.on("validNameResponse", d => {
-  if (d == false) alert("INVALID NAME!");
-  if (d == true) s.emit("joinGame", displayBox.value);
+  s.emit("joinGame", displayBox.value);
+  window.location = "/game";
+});
+
+s.on("nameFail", d => {
+  alert(d);
 });
 
 s.on("call", d => {

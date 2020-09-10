@@ -12,10 +12,10 @@ const BLACK = [0, 0, 0];
 
 const COLORS = [ RED, BLACK, RED, BLACK ];
 
-const JACK = 10;
-const QUEEN = 11;
-const KING = 12;
-const ACE = 13;
+const JACK = 11;
+const QUEEN = 12;
+const KING = 13;
+const ACE = 14;
 const LOW_ACE = 1;
 
 const FACE_NAMES = [ "hearts", "clubs", "diamonds", "spades" ];
@@ -30,11 +30,32 @@ class Card {
 		this.num = _num;
 		this.faceName = FACE_NAMES[this.face];
 		this.numName = NUM_NAMES[this.num];
+		this.cardName = `${this.numName}-of-${this.faceName}`
 		this.assetName = ASSET_TEMPLATE.split("{NUM}").join(this.numName).split("{FACE}").join(this.faceName);
 	}
 }
 
+class CardElement {
+	constructor(_card, _flipped) {
+		this.card = _card;
+		this.assetName = this.card.assetName;
+		this.backAssetName = "./client/assets/back.png";
+		this.img = document.createElement("img");
+		this.img.width = "125";
+		this.img.height = "180";
+		this.flipped = _flipped;
+		this.img.src = this.flipped ? this.backAssetName : this.assetName;
+	}
 
+	appendTo(element) {
+		element.append(this.img);
+	}
+
+	flip() {
+		this.flipped = !this.flipped;
+		this.img.src = this.flipped ? this.backAssetName : this.assetName;
+	}
+}
 
 
 

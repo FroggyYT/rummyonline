@@ -122,7 +122,7 @@ io.on("connection", s => {
 		}
 
 		if (valid) {
-			s.emit("nameValid");
+			s.emit("validNameResponse", valid);
 		}
 	});
 
