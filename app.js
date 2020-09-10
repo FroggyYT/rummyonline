@@ -19,6 +19,10 @@ app.get("/leaderboard", function(req, res) {
 	res.sendFile(__dirname + "/client/leaderboard.html");
 });
 
+app.get("/game", function(req, res) {
+	res.sendFile(__dirname + "/client/game.html");
+});
+
 app.use("/client", express.static(__dirname + "/client"));
 
 server.listen(process.env.PORT || 80);
